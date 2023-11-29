@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// metode nya get lalu masukkan namespace AuthController 
+// metode nya get lalu masukkan namespace AuthController
 // attribute name merupakan penamaan dari route yang kita buat
 // kita tinggal panggil fungsi route(name) pada layout atau controller
 Route::get('login', [AuthController::class,'index'])->name('login');
@@ -41,4 +41,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cek_login:user']], function () {
         Route::resource('user', UserController::class);
     });
+
+      Route::get('/prodi/create',[prodiController::class,'create'])->name('prodi.create');
+    Route::post('prodi/store', [prodiController::class,'store']);
+
+    Route::get('/prodi', [ProdiController::class,'index'])->name('prodi.index');
+    Route::get('prodi/{prodi}', [ProdiController::class,'show'])->name('prodi.show');
+    Route::get('prodi/{prodi}/edit', [ProdiController::class,'edit'])->name('prodi.edit');
+    Route::patch('/prodi/{prodi}', [ProdiController::class,'update']) ->name('prodi.update');
+    Route::delete('prodi/{prodi}', [ProdiController::class,'destroy']) ->name('prodi.destroy');
 });
